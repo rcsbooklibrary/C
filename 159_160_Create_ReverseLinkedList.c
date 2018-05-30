@@ -8,8 +8,9 @@ typedef struct node {
 }ll;
 
 ll *CreateLlist( ll *first,ll *head, int x);
-int DisplayNodes(ll *first,ll *head, int x);
+int DisplayNodes(ll *first);
 int ReverseDisplayNodes(ll *first);
+int release_mem(ll *first);
 
 int main()
 {
@@ -21,20 +22,18 @@ int main()
 	printf("Creating %d nodes\n",x);
 	first = CreateLlist( first, head, x);
 
-	DisplayNodes(first, head, x);
+	DisplayNodes(first);
 	printf("Displaying the nodes in Reverse order\n");
 	ReverseDisplayNodes(first);
 
+	 release_mem(first);
+	DisplayNodes(first);
 }
 
 ll *CreateLlist( ll *first,ll *head, int x)
 {
 	int i=0;
 	ll *tm  = NULL;
-	//*first  = NULL;
-	//*head  = NULL;
-
-
 
 	for(i=0;i<x;i++)
 	{
@@ -58,27 +57,17 @@ ll *CreateLlist( ll *first,ll *head, int x)
 /*
    Display Node address and Node value
  */
-int DisplayNodes(ll *first,ll *head, int x)
+int DisplayNodes(ll *first)
 {
 	int i=0;
-
 	printf("Displaying the nodes\n");
-	for(i=0;i<x;i++)
+	while(first != NULL)
 	{
-		if(i == 0){
-			printf("Value of %d node at address :%p is %d and next node address is %p\n"
-									,i,first,first->data,first->next);
-			head = first->next; 	
-		}else{
-			//	if(head->next != NULL )
-			//	{
-			printf("Value of %d node at address :%p is %d and next node address is %p\n"
-									,i,head,head->data,head->next);
-			head = head->next;
-
-			//	}
-		}
+	printf("Value of %d node at address :%p is %d and next node address is %p\n"
+								,i,first,first->data,first->next);
+		first = first->next;
 	}
+
 }
 
 /*
@@ -95,4 +84,14 @@ int ReverseDisplayNodes(ll *first)
 }
 
 
+int release_mem(ll *first)
+{
+	while(first != NULL)
+	{
+		free(first);
+		first = first->next;
+
+	}
+
+}
 
